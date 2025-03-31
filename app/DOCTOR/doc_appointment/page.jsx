@@ -20,6 +20,86 @@ export default function DoctorDashboard() {
         <div className="flex h-screen bg-gray-100">
             {/* Sidebar */}
             <DocSideBar />
+            {/* <aside className="w-64 bg-white p-6 shadow-lg h-screen fixed">
+                            <div className="flex items-center space-x-3 ">
+                                <img
+                                    src="/images/Doc-logo.png"
+                                    alt="Doctor Name"
+                                    className="w-10 h-10 rounded-full"
+                                />
+                                <div>
+                                    <h4 className="text-gray-900 text- font-semibold">Dr. Anand Nair</h4>
+                                    <p className="text-sm text-gray-500">Eye Care Specialist</p>
+                                </div>
+                            </div>
+                            <nav className="mt-8 ">
+                                <ul className="space-y-5 mb-5">
+                                    <li>
+                                        <a href="/DOCTOR/doc_dashboard">
+                                            <NavItem Icon={Home} label="Doctor Dashboard" activeItem={activeItem} setActiveItem={setActiveItem} isActivetext={true} />
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/DOCTOR/doc_appointment">
+                                            <NavItem Icon={Calendar} label="Appointments" activeItem={activeItem} setActiveItem={setActiveItem} />
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/DOCTOR/doctors_list">
+                                            <NavItem Icon={User} label="Doctor's List" activeItem={activeItem} setActiveItem={setActiveItem} />
+                                        </a>
+                                    </li>
+                                    <DropdownNavItem
+                                        Icon={Users}
+                                        label="Roles"
+                                        items={[{
+                                            "name": "Doctors",
+                                            "Routes": "/DOCTOR/roles_doc"
+                                        },
+                                        {
+                                            "name": "Receptionists",
+                                            "Routes": "/DOCTOR/roles_receptionist"
+                                        },
+                                        {
+                                            name: "Eye-wear Employee",
+                                            Routes: "/DOCTOR/roles_patient"
+                                        }]}
+                                        activeItem={activeItem}
+                                        setActiveItem={setActiveItem}
+                                    />
+                                    <DropdownNavItem
+                                        Icon={Users}
+                                        label="Patients"
+                                        items={[{
+                                            "name": "Registered",
+                                            "Routes": "/DOCTOR/patients_registered"
+                                        },
+                                        {
+                                            "name": "Unregistered",
+                                            "Routes": "/DOCTOR/patients_unregistered"
+                                        }]}
+                                        activeItem={activeItem}
+                                        setActiveItem={setActiveItem}
+                                    />
+            
+                                    <li>
+                                        <a href="/DOCTOR/doc_newuser">
+                                            <NavItem Icon={UserPlus} label="Create New User" activeItem={activeItem} setActiveItem={setActiveItem} />
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/DOCTOR/doc_clinic_earnings">
+                                            <NavItem Icon={ChartNoAxesCombined} label="Clinic Earnings" activeItem={activeItem} setActiveItem={setActiveItem} />
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/login">
+                                            <NavItem Icon={Settings} label="Logout" activeItem={activeItem} setActiveItem={setActiveItem} />
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </aside> */}
             {/* Main Content */}
             <div className="flex-1 p-6 ml-64">
                 <header className="flex justify-between items-center bg-blue-600 p-4 rounded-lg shadow-md">
@@ -40,8 +120,8 @@ export default function DoctorDashboard() {
 
                 <div className="flex mt-6 gap-6">
                     {/* Calendar Section */}
-                    <div className="w-1/3 bg-white p-4 rounded-lg shadow-md">
-                        <h2 className="text-lg font-semibold mb-4">Select Date</h2>
+                    <div className="w-1/3 bg-white text-black p-4 rounded-lg shadow-md">
+                        <h2 className="text-lg font-semibold text-black mb-4">Select Date</h2>
                         <CalendarComponent selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
                         <div className="mt-4">
                             <label className="block text-gray-700 font-medium">Select Doctor</label>
@@ -54,11 +134,11 @@ export default function DoctorDashboard() {
 
                     {/* Time Slots */}
                     <div className="flex-1 bg-white p-4 rounded-lg shadow-md">
-                        <h2 className="text-lg font-semibold">Available Time Slots</h2>
-                        <div className="mt-4">
+                        <h2 className="text-lg text-black font-semibold">Available Time Slots</h2>
+                        <div className="mt-4 text-black">
                             {Object.keys(timeSlots).map((period) => (
                                 <div key={period} className="mb-4">
-                                    <h3 className="font-semibold text-blue-600">{period.charAt(0).toUpperCase() + period.slice(1)}</h3>
+                                    <h3 className="font-semibold  text-blue-600">{period.charAt(0).toUpperCase() + period.slice(1)}</h3>
                                     <div className="grid grid-cols-3 gap-2 mt-2">
                                         {timeSlots[period].map((slot, index) => (
                                             <button key={index} className="px-3 py-2 bg-gray-200 rounded text-sm hover:bg-blue-500 hover:text-white">{slot}</button>

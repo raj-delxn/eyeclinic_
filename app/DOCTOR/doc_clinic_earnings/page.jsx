@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Home, Bell, Phone, User, Users, Settings, Calendar, ChartNoAxesCombined, CreditCard, ChevronDown } from "lucide-react";
+import { Home, Bell, Phone, User, Settings, Calendar, Users, ChartNoAxesCombined, UserPlus, CreditCard, ChevronDown } from "lucide-react";
 import CalendarComponent from "@/components/CalendarComponent"; // Adjust based on location
 
 export default function DoctorDashboard() {

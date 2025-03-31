@@ -42,8 +42,8 @@ export default function DashboardSideBar() {
                             <a href="/DOCTOR/doctors_list">
                                 <NavItem Icon={User} label="Doctor's List" activeItem={activeItem} setActiveItem={setActiveItem} />
                             </a>
-                        </li> */}
-                        {/* <DropdownNavItem
+                        </li>
+                        <DropdownNavItem
                             Icon={Users}
                             label="Roles"
                             items={[{

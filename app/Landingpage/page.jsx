@@ -113,9 +113,9 @@ export default function LandingPage() {
 
             {/* Services Section */}
 
-            <section className=" px-6">
+            <section className=" px-6 bg-white ">
                 {/* Heading */}
-                <h2 className="text-3xl font-bold text-center text-gray-900">Our Services</h2>
+                <h2 className="text-3xl bg-white font-bold text-center text-gray-900">Our Services</h2>
 
                 <div className="mt-10 ml-10 mr-10 flex flex-col lg:flex-row items-center lg:items-start lg:justify-between">
                     {/* Left Side - Service List */}

@@ -42,10 +42,10 @@ export default function UsersTable() {
                         </div>
                     </div>
                 </header>
-                <div className="p-6 bg-gray-100 min-h-screen">
-                    <div className="bg-white p-6 rounded-lg shadow-md">
-                        <h1 className="text-2xl font-semibold mb-4">Users</h1>
-                        <div className="flex justify-end mb-4">
+                <div className="p-6 bg-gray-100  min-h-screen">
+                    <div className="bg-white p-6 rounded-lg text-black shadow-md">
+                        <h1 className="text-2xl text-black font-semibold mb-4">Staff</h1>
+                        <div className="flex justify-end  mb-4">
                             <input
                                 type="text"
                                 placeholder="Search"
