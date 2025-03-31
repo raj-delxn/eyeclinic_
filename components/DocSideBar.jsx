@@ -80,7 +80,18 @@ const DocSideBar = () => {
           />
 
           {/* Patients Dropdown */}
-          <DropdownNavItem
+
+          <li>
+            <a href="/DOCTOR/patients_registered">
+              <NavItem
+                Icon={User}
+                label="Patients"
+                activeItem={activeItem}
+                setActiveItem={setActiveItem}
+              />
+            </a>
+          </li>
+          {/* <DropdownNavItem
             Icon={Users}
             label="Patients"
             items={[
@@ -89,7 +100,7 @@ const DocSideBar = () => {
             ]}
             activeItem={activeItem}
             setActiveItem={setActiveItem}
-          />
+          /> */}
 
           <li>
             <a href="/DOCTOR/doc_newuser">

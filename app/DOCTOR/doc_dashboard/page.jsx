@@ -106,8 +106,7 @@ export default function DashboardSideBar() {
                             className="px-4 py-2 rounded-md focus:ring outline-none "
                         />
                         <div className="items-center justify-center flex flex-row gap-4">
-                            <Bell className="text-white" />
-                            <Phone className="text-white" />
+                            
                             <User className="text-white" />
                         </div>
                     </div>

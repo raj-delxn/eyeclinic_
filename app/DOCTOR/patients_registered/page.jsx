@@ -28,7 +28,7 @@ export default function UsersTable() {
             {/* Main Content */}
             <div className="flex-1 p-6 ml-64">
                 <header className="flex justify-between items-center bg-blue-600 p-4 rounded-lg shadow-md">
-                    <h1 className="text-white text-lg font-bold">USERS</h1>
+                    <h1 className="text-white text-lg font-bold">PATIENTS</h1>
                     <div className="flex flex-row space-x-4">
                         <input
                             type="text"
@@ -36,15 +36,14 @@ export default function UsersTable() {
                             className="px-4 py-2 rounded-md focus:ring outline-none "
                         />
                         <div className="items-center justify-center flex flex-row gap-4">
-                            <Bell className="text-white" />
-                            <Phone className="text-white" />
+                            
                             <User className="text-white" />
                         </div>
                     </div>
                 </header>
-                <div className="p-6 bg-gray-100 min-h-screen">
+                <div className="p-6 bg-gray-100 text-black min-h-screen">
                     <div className="bg-white p-6 rounded-lg shadow-md">
-                        <h1 className="text-2xl font-semibold mb-4">Users</h1>
+                        <h1 className="text-2xl font-semibold mb-4">Patients</h1>
                         <div className="flex justify-end mb-4">
                             <input
                                 type="text"
