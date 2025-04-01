@@ -1,4 +1,4 @@
-"use client";  // Ensure client-side rendering
+"use client"; // Ensure client-side rendering
 
 import React, { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
@@ -15,13 +15,15 @@ import {
 
 const DocSideBar = () => {
   const [activeItem, setActiveItem] = useState(null);
-  const router = useRouter(); // Add this line at the beginning of DocSideBar
+  const router = useRouter(); 
+  const pathname = usePathname(); // Get the current path
 
   const handleLogout = async () => {
     try {
       const res = await fetch("/api/auth/sign-out", { method: "POST" });
       if (res.ok) {
         router.push("/login"); // Redirect to login
+        router.refresh(); // Refresh the page to clear cached authentication state
       } else {
         console.error("Logout failed");
       }
@@ -29,6 +31,7 @@ const DocSideBar = () => {
       console.error("Error logging out:", error);
     }
   };
+
   return (
     <aside className="w-64 bg-white p-6 shadow-lg h-screen fixed">
       {/* Doctor Profile Section */}
@@ -86,7 +89,13 @@ const DocSideBar = () => {
           </li>
 
           <li>
-            <NavItem Icon={Settings} label="Logout" route="/login" pathname={pathname} />
+            <button
+              onClick={handleLogout}
+              className="flex w-full items-center space-x-3 px-4 py-2 rounded-md text-gray-700 hover:bg-red-500 hover:text-white transition"
+            >
+              <Settings size={20} />
+              <span>Logout</span>
+            </button>
           </li>
         </ul>
       </nav>
@@ -96,17 +105,15 @@ const DocSideBar = () => {
 
 // Navigation Item Component
 function NavItem({ Icon, label, route, pathname }) {
+  const router = useRouter();
   const isActive = pathname === route; // Check if the route is active
 
-function NavItem({ Icon, label, activeItem, setActiveItem, isActive }) {
   return (
     <div
       className={`flex items-center space-x-3 cursor-pointer px-4 py-2 rounded-md transition ${
-        isActive
-          ? "bg-blue-500 text-white"
-          : "text-gray-700 hover:bg-blue-100"
+        isActive ? "bg-blue-500 text-white" : "text-gray-700 hover:bg-blue-100"
       }`}
-      onClick={() => setActiveItem(label)}
+      onClick={() => router.push(route)}
     >
       <Icon size={20} />
       <span>{label}</span>
@@ -116,28 +123,26 @@ function NavItem({ Icon, label, activeItem, setActiveItem, isActive }) {
 
 // Dropdown Navigation Item Component
 function DropdownNavItem({ Icon, label, items, pathname }) {
-  const router = useRouter();
   const [open, setOpen] = useState(false);
+  const router = useRouter();
+
+  // Check if any child route is active
   const isActive = items.some((item) => pathname === item.route);
 
   return (
     <div className="relative">
       <div
         className={`flex items-center justify-between cursor-pointer px-4 py-2 rounded-md transition ${
-          activeItem === label ? "bg-blue-500 text-white" : "text-gray-700 hover:bg-blue-100"
+          isActive ? "bg-blue-500 text-white" : "text-gray-700 hover:bg-blue-100"
         }`}
-        onClick={() => {
-          setOpen(!open);
-          setActiveItem(label);
-        }}
+        onClick={() => setOpen(!open)}
       >
         <div className="flex items-center space-x-3">
           <Icon size={20} />
           <span>{label}</span>
         </div>
-        <ChevronDown size={18} className={`${open ? "rotate-180" : ""} transition-transform`}/>
+        <ChevronDown size={18} className={`${open ? "rotate-180" : ""} transition-transform`} />
       </div>
-
 
       {open && (
         <div className="mt-2 bg-white shadow-md rounded-md w-full">
@@ -145,7 +150,7 @@ function DropdownNavItem({ Icon, label, items, pathname }) {
             <div
               key={index}
               className="px-4 py-2 text-gray-700 hover:bg-blue-100 cursor-pointer transition"
-              onClick={() => router.push(item.Routes)}
+              onClick={() => router.push(item.route)}
             >
               {item.name}
             </div>
@@ -155,5 +160,5 @@ function DropdownNavItem({ Icon, label, items, pathname }) {
     </div>
   );
 }
-}
+
 export default DocSideBar;
