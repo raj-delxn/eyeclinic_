@@ -51,7 +51,7 @@ export default function Dashboard() {
                 <div className="flex items-center justify-center mt-10">
                     <form onSubmit={handleSubmit} className="w-full max-w-sm">
                         <div className="flex justify-around mb-6">
-                            {['Doctor', 'Receptionist', 'Eye Wear'].map((r) => (
+                           {['Doctor', 'Receptionist', 'Eye Wear'].map((r) => (
                                 <button
                                     type="button"
                                     key={r}

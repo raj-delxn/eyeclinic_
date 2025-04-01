@@ -105,10 +105,12 @@ export default function DashboardSideBar() {
                             placeholder="Search"
                             className="px-4 py-2 rounded-md focus:ring outline-none "
                         />
-                        <div className="items-center justify-center flex flex-row gap-4">
-                            
-                            <User className="text-white" />
-                        </div>
+                        <a href="/DOCTOR/doc_profile">
+                            <div className="items-center justify-center flex flex-row gap-4 mt-2">
+
+                                <User className="text-white" />
+                            </div>
+                        </a>
                     </div>
                 </header>
 
