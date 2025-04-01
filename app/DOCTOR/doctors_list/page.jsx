@@ -40,8 +40,7 @@ export default function DoctorsList() {
                             placeholder="Search"
                             className="px-4 py-2 rounded-md focus:ring outline-none"
                         />
-                        <Bell className="text-white" />
-                        <Phone className="text-white" />
+                        
                         <User className="text-white" />
                     </div>
                 </header>

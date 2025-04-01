@@ -1,5 +1,7 @@
+"use client";  // Ensure client-side rendering
+
 import React, { useState } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   Home,
   Calendar,
@@ -31,11 +33,13 @@ const DocSideBar = () => {
     <aside className="w-64 bg-white p-6 shadow-lg h-screen fixed">
       {/* Doctor Profile Section */}
       <div className="flex items-center space-x-3">
-        <img
-          src="/images/Doc-logo.png"
-          alt="Doctor"
-          className="w-10 h-10 rounded-full"
-        />
+        <a href="/DOCTOR/doc_profile">
+          <img
+            src="/images/Doc-logo.png"
+            alt="Doctor"
+            className="w-10 h-10 rounded-full"
+          />
+        </a>
         <div>
           <h4 className="text-gray-900 font-semibold">Dr. Anand Nair</h4>
           <p className="text-sm text-gray-500">Eye Care Specialist</p>
@@ -46,116 +50,43 @@ const DocSideBar = () => {
       <nav className="mt-8">
         <ul className="space-y-5 mb-5">
           <li>
-            <a href="/DOCTOR/doc_dashboard">
-              <NavItem
-                Icon={Home}
-                label="Doctor Dashboard"
-                activeItem={activeItem}
-                setActiveItem={setActiveItem}
-                isActive
-              />
-            </a>
+            <NavItem Icon={Home} label="Doctor Dashboard" route="/DOCTOR/doc_dashboard" pathname={pathname} />
           </li>
 
           <li>
-            <a href="/DOCTOR/doc_appointment">
-              <NavItem
-                Icon={Calendar}
-                label="Appointments"
-                activeItem={activeItem}
-                setActiveItem={setActiveItem}
-              />
-            </a>
+            <NavItem Icon={Calendar} label="Appointments" route="/DOCTOR/doc_appointment" pathname={pathname} />
           </li>
 
           <li>
-            <a href="/DOCTOR/doctors_list">
-              <NavItem
-                Icon={User}
-                label="Doctor's List"
-                activeItem={activeItem}
-                setActiveItem={setActiveItem}
-              />
-            </a>
+            <NavItem Icon={User} label="Doctor's List" route="/DOCTOR/doctors_list" pathname={pathname} />
           </li>
 
           {/* Roles Dropdown */}
           <DropdownNavItem
-            Icon={User}
+            Icon={Users}
             label="Roles"
             items={[
-              { name: "Doctors", Routes: "/DOCTOR/roles_doc" },
-              { name: "Receptionists", Routes: "/DOCTOR/roles_receptionist" },
-              { name: "Eye-wear Employee", Routes: "/DOCTOR/roles_eyewear" },
+              { name: "Doctors", route: "/DOCTOR/roles_doc" },
+              { name: "Receptionists", route: "/DOCTOR/roles_receptionist" },
+              { name: "Eye-wear Employee", route: "/DOCTOR/roles_patient" },
             ]}
-            activeItem={activeItem}
-            setActiveItem={setActiveItem}
+            pathname={pathname}
           />
 
-          {/* Patients Dropdown */}
-          {/* <DropdownNavItem
-            Icon={Users}
-            label="Patients"
-            items={[
-              { name: "Registered", Routes: "/DOCTOR/patients_registered" },
-              { name: "Unregistered", Routes: "/DOCTOR/patients_unregistered" },
-            ]}
-            activeItem={activeItem}
-            setActiveItem={setActiveItem}
-          /> */}
           <li>
-          <a href="/DOCTOR/doc_newuser">
-
-              <NavItem
-                Icon={UserPlus}
-                label="Create New User"
-                activeItem={activeItem}
-                setActiveItem={setActiveItem}
-              />
-            </a>
+            <NavItem Icon={User} label="Patients" route="/DOCTOR/patients_registered" pathname={pathname} />
           </li>
 
           <li>
-            <a href="/DOCTOR/patients_registered">
-
-              <NavItem
-                Icon={Users}
-                label="Patients"
-                activeItem={activeItem}
-                setActiveItem={setActiveItem}
-              />
-            </a>
+            <NavItem Icon={UserPlus} label="Create New User" route="/DOCTOR/doc_newuser" pathname={pathname} />
           </li>
 
           <li>
-            <a href="/DOCTOR/doc_clinic_earnings">
-              <NavItem
-                Icon={BarChart2}
-                label="Clinic Earnings"
-                activeItem={activeItem}
-                setActiveItem={setActiveItem}
-              />
-            </a>
+            <NavItem Icon={BarChart2} label="Clinic Earnings" route="/DOCTOR/doc_clinic_earnings" pathname={pathname} />
           </li>
 
-          {/* <li>
-            <a href="/login">
-              <NavItem
-                Icon={Settings}
-                label="Logout"
-                activeItem={activeItem}
-                setActiveItem={setActiveItem}
-              />
-            </a>
-          </li> */}
-           <li>
-            <button
-              onClick={handleLogout}
-              className="flex w-full items-center space-x-3 px-4 py-2 rounded-md text-gray-700 hover:bg-red-500 hover:text-white transition"
-            >
-              <Settings size={20} />
-              <span>Logout</span>
-            </button>
+          <li>
+            <NavItem Icon={Settings} label="Logout" route="/login" pathname={pathname} />
           </li>
         </ul>
       </nav>
@@ -164,6 +95,9 @@ const DocSideBar = () => {
 };
 
 // Navigation Item Component
+function NavItem({ Icon, label, route, pathname }) {
+  const isActive = pathname === route; // Check if the route is active
+
 function NavItem({ Icon, label, activeItem, setActiveItem, isActive }) {
   return (
     <div
@@ -181,9 +115,10 @@ function NavItem({ Icon, label, activeItem, setActiveItem, isActive }) {
 }
 
 // Dropdown Navigation Item Component
-function DropdownNavItem({ Icon, label, items, activeItem, setActiveItem }) {
-  const [open, setOpen] = useState(false);
+function DropdownNavItem({ Icon, label, items, pathname }) {
   const router = useRouter();
+  const [open, setOpen] = useState(false);
+  const isActive = items.some((item) => pathname === item.route);
 
   return (
     <div className="relative">
@@ -202,6 +137,7 @@ function DropdownNavItem({ Icon, label, items, activeItem, setActiveItem }) {
         </div>
         <ChevronDown size={18} className={`${open ? "rotate-180" : ""} transition-transform`}/>
       </div>
+
 
       {open && (
         <div className="mt-2 bg-white shadow-md rounded-md w-full">

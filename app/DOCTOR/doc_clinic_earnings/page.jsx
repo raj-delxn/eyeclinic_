@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Home, Bell, Phone, User, Users, Settings, Calendar, ChartNoAxesCombined, CreditCard, ChevronDown } from "lucide-react";
+import { Home, Bell, Phone, User, Settings, Calendar, Users, ChartNoAxesCombined, UserPlus, CreditCard, ChevronDown } from "lucide-react";
 import CalendarComponent from "@/components/CalendarComponent"; // Adjust based on location
 
 export default function DoctorDashboard() {
@@ -107,7 +107,7 @@ export default function DoctorDashboard() {
             {/* Main Content */}
             <div className="flex-1 p-6 ml-64">
                 <header className="flex justify-between items-center bg-blue-600 p-4 rounded-lg shadow-md">
-                    <h1 className="text-white text-lg font-bold">Appointments</h1>
+                    <h1 className="text-white text-lg font-bold">Clinic Earnings</h1>
                     <div className="flex flex-row space-x-4">
                         <input
                             type="text"
@@ -115,8 +115,7 @@ export default function DoctorDashboard() {
                             className="px-4 py-2 rounded-md focus:ring outline-none "
                         />
                         <div className="items-center justify-center flex flex-row gap-4">
-                            <Bell className="text-white" />
-                            <Phone className="text-white" />
+                            
                             <User className="text-white" />
                         </div>
                     </div>

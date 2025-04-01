@@ -72,6 +72,17 @@ export default function DoctorDashboard() {
                             <Phone className="text-white" />
                             <User className="text-white" />
                         </div>
+                        <input
+                            type="text"
+                            placeholder="Search"
+                            className="px-4 py-2 rounded-md focus:ring outline-none "
+                        />
+                        <a href="/DOCTOR/doc_profile">
+                            <div className="items-center justify-center flex flex-row gap-4 mt-2">
+
+                                <User className="text-white" />
+                            </div>
+                        </a>    
                     </div>
                 </header>
 
@@ -81,9 +92,10 @@ export default function DoctorDashboard() {
                         <CalendarComponent selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
                     </div>
 
-                    <div className="flex-1 bg-white p-6 rounded-lg shadow-md">
-                        <h2 className="text-lg font-semibold mb-4">Available Time Slots</h2>
-                        <div className="mt-4">
+                    {/* Time Slots */}
+                    <div className="flex-1 bg-white p-4 rounded-lg shadow-md">
+                        <h2 className="text-lg text-black font-semibold">Available Time Slots</h2>
+                        <div className="mt-4 text-black">
                             {Object.keys(timeSlots).map((period) => (
                                 <div key={period} className="mb-6">
                                     <h3 className="font-semibold text-blue-600">{period.charAt(0).toUpperCase() + period.slice(1)}</h3>
