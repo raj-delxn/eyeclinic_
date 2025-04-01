@@ -3,7 +3,7 @@ import React, { useState, useEffect  } from 'react';
 import { useRouter } from "next/navigation"; // Import useRouter
 import { ChevronDown } from "lucide-react";
 
-function DropdownNavItem({ Icon, label, items, activeItem, setActiveItem }) {
+export default function  DropdownNavItem({ Icon, label, items, activeItem, setActiveItem }) {
     const [open, setOpen] = useState(false);
     const router = useRouter();
   

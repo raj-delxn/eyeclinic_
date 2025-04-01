@@ -1,24 +1,22 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Home, Bell, Phone, User, Users, UserPlus,  Settings, Calendar, ChartNoAxesCombined, CreditCard, ChevronDown } from "lucide-react";
+import { Home, Bell, Phone, User, Users, UserPlus, Settings, Calendar, ChartNoAxesCombined, CreditCard, ChevronDown } from "lucide-react";
 import DocSideBar from "../../../components/DocSideBar";
 
 export default function UsersTable() {
     const [activeItem, setActiveItem] = useState(null);
     const [users, setUsers] = useState([]);
     const [search, setSearch] = useState('');
+    const [role, setRole] = useState('eyewear_employee'); // Hardcoded role for now
 
     useEffect(() => {
         // Fetch users from backend when integrated
-        fetch('/api/users') // Change this to your actual backend API endpoint
+        fetch(`/api/staff/fetchStaff?role=${role}`)
             .then((res) => res.json())
-            .then((data) => setUsers(data))
+            .then((data) => setUsers(data.staffMembers)) // Assuming API responds with staffMembers
             .catch((err) => console.error('Error fetching users:', err));
-    }, []);
-
-
-
+    }, [role]); // Fetch when role changes
 
     return (
         <div className="flex h-screen bg-gray-100">
@@ -26,9 +24,9 @@ export default function UsersTable() {
             <DocSideBar />
 
             {/* Main Content */}
-            <div className="flex-1 p-6 ml-64">
+            <div className="flex-1 p-6 ml-64 text-black">
                 <header className="flex justify-between items-center bg-blue-600 p-4 rounded-lg shadow-md">
-                    <h1 className="text-white text-lg font-bold">Eye Wear</h1>
+                    <h1 className="text-white text-lg font-bold">Eyewear Employee</h1>
                     <div className="flex flex-row space-x-4">
                         <input
                             type="text"
@@ -57,26 +55,20 @@ export default function UsersTable() {
                         <table className="w-full border-collapse border border-gray-300">
                             <thead>
                                 <tr className="bg-gray-200">
-                                    {/* <th className="border p-2">Id</th> */}
                                     <th className="border p-2">User Name</th>
                                     <th className="border p-2">User Email</th>
-                                    {/* <th className="border p-2">Gender</th>
-              <th className="border p-2">Age</th> */}
                                     <th className="border p-2">Mobile Number</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {users
                                     .filter((user) =>
-                                        user.name.toLowerCase().includes(search.toLowerCase())
+                                        user.username.toLowerCase().includes(search.toLowerCase())
                                     )
                                     .map((user, index) => (
                                         <tr key={index} className="border">
-                                            {/* <td className="border p-2 text-center">{user.id}</td> */}
-                                            <td className="border p-2 font-semibold">{user.name}</td>
+                                            <td className="border p-2 font-semibold">{user.username}</td>
                                             <td className="border p-2">{user.email}</td>
-                                            {/* <td className="border p-2">{user.gender}</td>
-                  <td className="border p-2 text-center">{user.age}</td> */}
                                             <td className="border p-2 font-semibold">{user.phone}</td>
                                         </tr>
                                     ))}
@@ -84,43 +76,7 @@ export default function UsersTable() {
                         </table>
                     </div>
                 </div>
-
-
-
             </div>
-        </div>
-    );
-};
-
-// Sidebar Components
-function NavItem({ Icon, label, activeItem, setActiveItem }) {
-    const isActive = activeItem === label;
-    return (
-        <div className={`flex items-center space-x-3 cursor-pointer px-4 py-2 rounded-md transition ${isActive ? "bg-blue-500 text-white" : "text-gray-700 hover:bg-blue-100"}`} onClick={() => setActiveItem(label)}>
-            <Icon size={20} />
-            <span>{label}</span>
-        </div>
-    );
-}
-
-function DropdownNavItem({ Icon, label, items, activeItem, setActiveItem }) {
-    const [open, setOpen] = useState(false);
-    return (
-        <div className="relative">
-            <div className={`flex items-center justify-between cursor-pointer px-4 py-2 rounded-md transition ${activeItem === label ? "bg-blue-600 text-white" : "text-gray-700 hover:bg-blue-100"}`} onClick={() => { setOpen(!open); setActiveItem(label); }}>
-                <div className="flex items-center space-x-3">
-                    <Icon size={20} />
-                    <span>{label}</span>
-                </div>
-                <ChevronDown size={18} className={`${open ? "rotate-180" : ""} transition-transform`} />
-            </div>
-            {open && (
-                <div className="mt-2 bg-white shadow-md rounded-md w-full">
-                    {items.map((item, index) => (
-                        <div key={index} className="px-4 py-2 text-gray-700 hover:bg-blue-100 cursor-pointer transition">{item}</div>
-                    ))}
-                </div>
-            )}
         </div>
     );
 }

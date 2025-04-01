@@ -1,14 +1,33 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Home, Bell, Phone, User, Settings, Calendar, Users, ChartNoAxesCombined, UserPlus, CreditCard, ChevronDown } from "lucide-react";
-import DropdownNavItem from "@/components/DropdownNavItem";
+import DropdownNavItem from "../../../components/DropdownNavItem";
 import DocSideBar from "../../../components/DocSideBar";
 
 export default function DashboardSideBar() {
     const [activeItem, setActiveItem] = useState(null);
-    const [isActivetext, setIsActivetext] = useState(null);
+    const [stats, setStats] = useState({
+        todaysPatients: 0,
+        todaysAppointments: 0,
+        totalPatients: 0,
+        totalAppointments: 0,
+    });
 
+    useEffect(() => {
+        async function fetchStats() {
+            try {
+                const response = await fetch("/api/doctor/statistics");
+                if (!response.ok) throw new Error("Failed to fetch statistics");
+                
+                const data = await response.json();
+                setStats(data);
+            } catch (error) {
+                console.error("Error fetching statistics:", error);
+            }
+        }
+        fetchStats();
+    }, []);
     return (
 
         <div className="flex h-screen bg-white">
@@ -42,8 +61,8 @@ export default function DashboardSideBar() {
                             <a href="/DOCTOR/doctors_list">
                                 <NavItem Icon={User} label="Doctor's List" activeItem={activeItem} setActiveItem={setActiveItem} />
                             </a>
-                        </li> */}
-                        {/* <DropdownNavItem
+                        </li>
+                        <DropdownNavItem
                             Icon={Users}
                             label="Roles"
                             items={[{
@@ -118,18 +137,18 @@ export default function DashboardSideBar() {
                     <h2 className="text-white text-xl font-semibold">Good Morning,</h2>
                     <h3 className="text-white text-2xl font-bold">Dr. Anand Nair</h3>
                     <p className="text-gray-100 mt-2">
-                        You have Total <span className="text-blue-400 p-1 cursor-pointer font-bold text-xl">18 Appointments</span> Today.
+                        You have Total <span className="text-blue-400 p-1 cursor-pointer font-bold text-xl">{stats.todaysAppointments}</span> Appointments Today.
                     </p>
                     <div className="flex space-x-6 mt-4">
-                        <StatCard label="Patients" count={10} />
-                        <CalendarCard label="Appointments" count={22} />
+                        <StatCard label="Patients" count={stats.todaysPatients} />
+                        <CalendarCard label="Appointments" count= {stats.todaysAppointments} />
                     </div>
                 </section>
 
                 {/* Statistics Section */}
                 <section className="mt-6 grid grid-cols-2 gap-4">
-                    <InfoCard1 title="Patients Visited" count={322} />
-                    <InfoCard2 title=" Upcoming Appointments" count={56} />
+                    <InfoCard1 title="Patients Visited" count={stats.totalPatients} />
+                    <InfoCard2 title=" Upcoming Appointments" count={stats.totalAppointments} />
                 </section>
 
                 {/* Clinic Earnings */}

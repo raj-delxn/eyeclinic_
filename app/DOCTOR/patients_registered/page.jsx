@@ -10,12 +10,18 @@ export default function UsersTable() {
     const [search, setSearch] = useState('');
 
     useEffect(() => {
-        // Fetch users from backend when integrated
-        fetch('/api/users') // Change this to your actual backend API endpoint
+        fetch('/api/doctor/userlist/patients') 
             .then((res) => res.json())
-            .then((data) => setUsers(data))
+            .then((data) => {
+                if (Array.isArray(data.patients)) {
+                    setUsers(data.patients); // Ensure patients are stored correctly
+                } else {
+                    console.error("Unexpected API response format:", data);
+                }
+            })
             .catch((err) => console.error('Error fetching users:', err));
     }, []);
+    
 
 
 
@@ -56,12 +62,13 @@ export default function UsersTable() {
                         </div>
                         <table className="w-full border-collapse border border-gray-300">
                             <thead>
-                                <tr className="bg-gray-200">
+                                <tr className="bg-gray-200 text-black">
                                     {/* <th className="border p-2">Id</th> */}
                                     <th className="border p-2">User Name</th>
-                                    <th className="border p-2">Mobile Number</th>
+                                    {/* <th className="border p-2">Mobile Number</th> */}
                                     <th className="border p-2">User Email</th>
-                                    <th className="border p-2">Role</th>
+                                    <th className="border p-2">Age</th>
+                                    <th className="border p-2">Gender</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -70,13 +77,13 @@ export default function UsersTable() {
                                         user.name.toLowerCase().includes(search.toLowerCase())
                                     )
                                     .map((user, index) => (
-                                        <tr key={index} className="border">
+                                        <tr key={index} className="border text-black">
                                             {/* <td className="border p-2 text-center">{user.id}</td> */}
                                             <td className="border p-2 font-semibold">{user.name}</td>
                                             <td className="border p-2">{user.email}</td>
-                                            <td className="border p-2">{user.phone}</td>
-                                            {/* <td className="border p-2 text-center">{user.age}</td> */}
-                                            <td className="border p-2 font-semibold">{user.role}</td>
+                                            {/* <td className="border p-2">{user.phone}</td> */}
+                                            <td className="border p-2 text-center">{user.age}</td>
+                                            <td className="border p-2 font-semibold">{user.gender}</td>
                                         </tr>
                                     ))}
                             </tbody>

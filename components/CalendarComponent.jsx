@@ -1,29 +1,27 @@
-import { useState, useEffect } from 'react';
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
+import { useEffect, useState } from "react";
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
 
-
-export default function CalendarComponent() {
-  const [value, setValue] = useState(null);
+export default function CalendarComponent({ selectedDate, setSelectedDate }) {
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setValue(new Date());
+    setMounted(true);
   }, []);
+
+  if (!mounted) return null; // Prevents SSR mismatch
 
   return (
     <div className="custom-calendar">
-      {value && (
-        <Calendar
-          onChange={setValue}
-          value={value}
-          tileClassName={({ date, view }) =>
-            view === 'month' && date.toDateString() === new Date().toDateString()
-              ? 'highlight-today'
-              : null
-          }
-        />
-      )}
+      <Calendar
+        onChange={setSelectedDate}
+        value={selectedDate}
+        tileClassName={({ date, view }) =>
+          view === "month" && date.toDateString() === new Date().toDateString()
+            ? "highlight-today"
+            : null
+        }
+      />
     </div>
   );
 }
-
