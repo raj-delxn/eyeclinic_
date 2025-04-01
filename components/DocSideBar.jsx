@@ -20,11 +20,13 @@ const DocSideBar = () => {
     <aside className="w-64 bg-white p-6 shadow-lg h-screen fixed">
       {/* Doctor Profile Section */}
       <div className="flex items-center space-x-3">
-        <img
-          src="/images/Doc-logo.png"
-          alt="Doctor"
-          className="w-10 h-10 rounded-full"
-        />
+        <a href="/DOCTOR/doc_profile">
+          <img
+            src="/images/Doc-logo.png"
+            alt="Doctor"
+            className="w-10 h-10 rounded-full"
+          />
+        </a>
         <div>
           <h4 className="text-gray-900 font-semibold">Dr. Anand Nair</h4>
           <p className="text-sm text-gray-500">Eye Care Specialist</p>
@@ -86,9 +88,8 @@ function NavItem({ Icon, label, route, pathname }) {
   return (
     <a href={route} className="block">
       <div
-        className={`flex items-center space-x-3 cursor-pointer px-4 py-2 rounded-md transition ${
-          isActive ? "bg-blue-500 text-white" : "text-gray-700 hover:bg-blue-100"
-        }`}
+        className={`flex items-center space-x-3 cursor-pointer px-4 py-2 rounded-md transition ${isActive ? "bg-blue-500 text-white" : "text-gray-700 hover:bg-blue-100"
+          }`}
       >
         <Icon size={20} />
         <span>{label}</span>
@@ -106,9 +107,8 @@ function DropdownNavItem({ Icon, label, items, pathname }) {
   return (
     <div className="relative">
       <div
-        className={`flex items-center justify-between cursor-pointer px-4 py-2 rounded-md transition ${
-          isActive ? "bg-blue-500 text-white" : "text-gray-700 hover:bg-blue-100"
-        }`}
+        className={`flex items-center justify-between cursor-pointer px-4 py-2 rounded-md transition ${isActive ? "bg-blue-500 text-white" : "text-gray-700 hover:bg-blue-100"
+          }`}
         onClick={() => setOpen(!open)} // Toggle dropdown
       >
         <div className="flex items-center space-x-3">
@@ -123,9 +123,8 @@ function DropdownNavItem({ Icon, label, items, pathname }) {
           {items.map((item, index) => (
             <div
               key={index}
-              className={`px-4 py-2 cursor-pointer transition ${
-                pathname === item.route ? "bg-blue-500 text-white" : "text-gray-700 hover:bg-blue-100"
-              }`}
+              className={`px-4 py-2 cursor-pointer transition ${pathname === item.route ? "bg-blue-500 text-white" : "text-gray-700 hover:bg-blue-100"
+                }`}
               onClick={() => router.push(item.route)}
             >
               {item.name}

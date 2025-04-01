@@ -78,7 +78,7 @@ const DoctorProfile = () => {
       <div className="flex-1 p-6 ml-64">
         {/* Header */}
         <header className="flex justify-between items-center bg-blue-600 p-4 rounded-lg shadow-md">
-          <h1 className="text-white text-lg font-bold">Your Profile</h1>
+          <h1 className="text-white text-lg font-bold">Profile</h1>
           <div className="flex flex-row space-x-4">
             <input
               type="text"
@@ -92,7 +92,7 @@ const DoctorProfile = () => {
         </header>
         {/* Profile Section */}
         <div className="mt-8 bg-white p-6 rounded-lg  shadow-md w-2/3">
-          <h2 className="text-xl text-black font-bold">Doctor Profile</h2>
+          <h2 className="text-xl text-black font-bold">Profile</h2>
           <div className="mt-4 space-y-4 ">
             {Object.keys(doctor).map((key) => (
               <div key={key}>
