@@ -155,5 +155,5 @@ function DropdownNavItem({ Icon, label, items, pathname }) {
     </div>
   );
 }
-
+}
 export default DocSideBar;
