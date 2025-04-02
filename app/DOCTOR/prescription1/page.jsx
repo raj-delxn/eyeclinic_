@@ -53,7 +53,7 @@ export default function PrescriptionComponent() {
       <div className="flex-1 text-black p-6 ml-64">
         {/* Header */}
         <header className="flex justify-between items-center bg-blue-600 p-4 rounded-lg shadow-md">
-          <h1 className="text-white text-lg font-bold">Today's Appointments</h1>
+          <h1 className="text-white text-lg font-bold">Prescription</h1>
           <div className="flex flex-row space-x-4">
             <input
               type="text"
