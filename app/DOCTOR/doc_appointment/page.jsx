@@ -66,12 +66,7 @@ export default function DoctorDashboard() {
                 <header className="flex justify-between items-center bg-blue-600 p-4 rounded-lg shadow-md">
                     <h1 className="text-white text-lg font-bold">Appointments</h1>
                     <div className="flex flex-row space-x-4">
-                        <input type="text" placeholder="Search" className="px-4 py-2 rounded-md focus:ring outline-none" />
-                        <div className="items-center flex flex-row gap-4">
-                            <Bell className="text-white" />
-                            <Phone className="text-white" />
-                            <User className="text-white" />
-                        </div>
+                        
                         <input
                             type="text"
                             placeholder="Search"
