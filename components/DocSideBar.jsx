@@ -16,23 +16,34 @@ import {
 const DocSideBar = () => {
   const router = useRouter();
   const pathname = usePathname();
+  const [token, setToken] = useState(null);
+
+  // 🔹 Check if user is authenticated
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+
+    if (!storedToken) {
+      router.push("/login"); // Redirect if no token
+    } else {
+      setToken(storedToken);
+    }
+  }, []);
+
+  // 🔹 Prevent sidebar from rendering before checking auth
+  if (!token) return null;
 
   // 🔹 Handle Logout (Prevents Back Navigation)
   const handleLogout = async () => {
     try {
       const response = await fetch("/api/auth/sign-out", { method: "POST" });
-  
+
       if (response.ok) {
-        // 🔹 Clear client-side token
         localStorage.removeItem("token");
-  
-        // 🔹 Redirect to login immediately
         router.push("/login");
-  
-        // 🔹 Prevent going back to protected pages
+
         setTimeout(() => {
           window.history.pushState(null, null, window.location.href);
-          window.onpopstate = function () {
+          window.onpopstate = () => {
             window.history.pushState(null, null, window.location.href);
           };
         }, 0);
@@ -43,7 +54,6 @@ const DocSideBar = () => {
       console.error("Logout error:", error);
     }
   };
-  
 
   return (
     <aside className="w-64 bg-white p-6 shadow-lg h-screen fixed">
@@ -81,7 +91,7 @@ const DocSideBar = () => {
             items={[
               { name: "Doctors", route: "/DOCTOR/roles_doc" },
               { name: "Receptionists", route: "/DOCTOR/roles_receptionist" },
-              { name: "Eye-wear Employee", route: "/DOCTOR/roles_patient" },
+              { name: "Eye-wear Employee", route: "/DOCTOR/roles_eyewear" },
             ]}
             pathname={pathname}
           />
@@ -152,7 +162,7 @@ function DropdownNavItem({ Icon, label, items, pathname }) {
               className="px-4 py-2 text-gray-700 hover:bg-blue-100 cursor-pointer transition"
               onClick={() => {
                 router.push(item.route);
-                setOpen(false); // 🔹 Close dropdown after clicking
+                setOpen(false);
               }}
             >
               {item.name}
