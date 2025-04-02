@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { Home, Bell, Phone, User, Settings, Calendar, Users, ChartNoAxesCombined, UserPlus, CreditCard, ChevronDown } from "lucide-react";
-import DropdownNavItem from "../../../components/DropdownNavItem";
 import DocSideBar from "../../../components/DocSideBar";
 
 export default function DashboardSideBar() {
