@@ -78,7 +78,7 @@ export default function LoginForm() {
 
                 {error && <p className="text-red-500 text-center">{error}</p>}
 
-                <form className="mt-4 space-y-4" onSubmit={handleSubmit}>
+                <form className="mt-4 text-black space-y-4" onSubmit={handleSubmit}>
                     <div>
                         <label className="block text-gray-700 font-medium">Username *</label>
                         <input
@@ -112,9 +112,9 @@ export default function LoginForm() {
                         </button>
                     </div>
 
-                    <a href="/forgot-password">
+                    {/* <a href="/forgot-password">
                         <p className="text-right text-sm text-blue-600 cursor-pointer">Forgot Password?</p>
-                    </a>
+                    </a> */}
 
                     <button
                         type="submit"

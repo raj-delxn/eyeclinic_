@@ -64,7 +64,7 @@ const DoctorProfile = () => {
                   <th className="p-3 text-left">Email</th>
                   <th className="p-3 text-left">Age</th>
                   <th className="p-3 text-left">Gender</th>
-                  <th className="p-3 text-left">Action</th>
+                  <th className="p-3 text-left">Proceed</th>
                 </tr>
               </thead>
               <tbody>
