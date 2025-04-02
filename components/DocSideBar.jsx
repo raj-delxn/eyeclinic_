@@ -59,9 +59,20 @@ const DocSideBar = () => {
 
       <nav className="mt-8">
         <ul className="space-y-5 mb-5">
-          <li><NavItem Icon={Home} label="Doctor Dashboard" route="/DOCTOR/doc_dashboard" pathname={pathname} /></li>
-          <li><NavItem Icon={Calendar} label="Appointments" route="/DOCTOR/doc_appointment" pathname={pathname} /></li>
-          <li><NavItem Icon={User} label="Doctor's List" route="/DOCTOR/doctors_list" pathname={pathname} /></li>
+          <li>
+            <NavItem Icon={Home} label="Doctor Dashboard" route="/DOCTOR/doc_dashboard" pathname={pathname} />
+          </li>
+          <li>
+            <NavItem Icon={UserPlus} label="Check-Ups" route="/DOCTOR/doc_checkup" pathname={pathname} />
+          </li>
+
+          <li>
+            <NavItem Icon={Calendar} label="Appointments" route="/DOCTOR/doc_appointment" pathname={pathname} />
+          </li>
+
+          <li>
+            <NavItem Icon={User} label="Doctor's List" route="/DOCTOR/doctors_list" pathname={pathname} />
+          </li>
 
           {/* Roles Dropdown */}
           <DropdownNavItem

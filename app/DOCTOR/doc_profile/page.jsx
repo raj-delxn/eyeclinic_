@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { Home, Calendar, User, Users, UserPlus, Settings, ChartNoAxesCombined } from "lucide-react";
 import DropdownNavItem from "@/components/DropdownNavItem";
+import DocSideBar from "../../../components/DocSideBar";
 
 const DoctorProfile = () => {
   const [doctor, setDoctor] = useState({
@@ -25,55 +26,7 @@ const DoctorProfile = () => {
   return (
     <div className="flex bg-white">
       {/* Sidebar */}
-      <aside className="w-64 bg-white p-6 shadow-lg h-screen fixed">
-        <div className="flex items-center space-x-3 ">
-          <img
-            src="/images/Doc-logo.png"
-            alt="Doctor Name"
-            className="w-10 h-10 rounded-full"
-          />
-          <div>
-            <h4 className="text-gray-900 font-semibold">Dr. Anand Nair</h4>
-            <p className="text-sm text-gray-500">Eye Care Specialist</p>
-          </div>
-        </div>
-        <nav className="mt-8 ">
-          <ul className="space-y-5 mb-5">
-            <li>
-              <a href="/DOCTOR/doc_dashboard">
-                <NavItem Icon={Home} label="Doctor Dashboard" />
-              </a>
-            </li>
-            <li>
-              <a href="/DOCTOR/doc_appointment">
-                <NavItem Icon={Calendar} label="Appointments" />
-              </a>
-            </li>
-            <li>
-              <a href="/DOCTOR/doctors_list">
-                <NavItem Icon={User} label="Doctor's List" />
-              </a>
-            </li>
-            <DropdownNavItem Icon={Users} label="Roles" items={[{ name: "Doctors", Routes: "/DOCTOR/roles_doc" }, { name: "Receptionists", Routes: "/DOCTOR/roles_receptionist" }, { name: "Eye-wear Employee", Routes: "/DOCTOR/roles_patient" }]} />
-            <DropdownNavItem Icon={Users} label="Patients" items={[{ name: "Registered", Routes: "/DOCTOR/patients_registered" }, { name: "Unregistered", Routes: "/DOCTOR/patients_unregistered" }]} />
-            <li>
-              <a href="/DOCTOR/doc_newuser">
-                <NavItem Icon={UserPlus} label="Create New User" />
-              </a>
-            </li>
-            <li>
-              <a href="/DOCTOR/doc_clinic_earnings">
-                <NavItem Icon={ChartNoAxesCombined} label="Clinic Earnings" />
-              </a>
-            </li>
-            <li>
-              <a href="/login">
-                <NavItem Icon={Settings} label="Logout" />
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </aside>
+      <DocSideBar />
       {/* Main Content */}
       <div className="flex-1 p-6 ml-64">
         {/* Header */}
