@@ -25,8 +25,8 @@ const DoctorProfile = () => {
   }, []);
 
   // Handle Proceed button
-  const handleProceed = (id) => {
-    router.push(`/DOCTOR/prescription/${id}`);
+  const handleProceed = (appointment) => {
+    router.push(`/DOCTOR/prescription1?name=${encodeURIComponent(appointment.patientName)}&age=${appointment.age}&gender=${appointment.gender}&date=${new Date().toISOString().split('T')[0]}`);
   };
 
   return (
@@ -65,11 +65,12 @@ const DoctorProfile = () => {
                     <td className="p-3">{appointment.gender}</td>
                     <td className="p-3">
                       <button
-                        onClick={() => handleProceed(appointment._id)}
+                        onClick={() => handleProceed(appointment)}
                         className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
                       >
                         Proceed
                       </button>
+
                     </td>
                   </tr>
                 ))}

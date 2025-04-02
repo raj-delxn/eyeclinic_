@@ -1,28 +1,43 @@
 "use client"
 
 import { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { useEffect } from 'react';
 import { Home, Bell, Phone, User, Settings, Calendar, Users, CreditCard, ChevronDown } from 'lucide-react';
 import DocSideBar from "../../../components/DocSideBar";
 
 
 export default function PrescriptionComponent() {
+  const searchParams = useSearchParams();
   const [activeItem, setActiveItem] = useState(null);
-
+  const [inputValue, setInputValue] = useState('');
+  <input
+    type="text"
+    value={inputValue}
+    onChange={(e) => setInputValue(e.target.value)}
+  />
+  
   const [prescription, setPrescription] = useState({
-    // patientName: '',
-    // age: '',
-    // gender: '',
-    // date: '',
-    // medicine: '',
-    // dosage: '',
-    // duration: '',
+    patientName: searchParams.get("name") || "",
+    age: searchParams.get("age") || "",
+    gender: searchParams.get("gender") || "",
+    date: searchParams.get("date") || "",
     powerDetails: {
       left: { sph: '', cyl: '', axis: '', pd: '' },
       right: { sph: '', cyl: '', axis: '', pd: '' }
     },
     suggestion: ''
-
   });
+
+  useEffect(() => {
+    setPrescription((prev) => ({
+      ...prev,
+      patientName: searchParams.get("name") || prev.patientName,
+      age: searchParams.get("age") || prev.age,
+      gender: searchParams.get("gender") || prev.gender,
+      date: searchParams.get("date") || prev.date,
+    }));
+  }, [searchParams]);
 
   const handleSubmit = () => {
     const jsonData = JSON.stringify(prescription, null, 2);
@@ -54,10 +69,41 @@ export default function PrescriptionComponent() {
         <div className="bg-white p-6 rounded-lg shadow-md mt-6">
           <h2 className="text-lg font-semibold">Create Prescription</h2>
           <div className="grid grid-cols-3 gap-4">
-            <input type="text" placeholder="Enter Name" value={prescription.patientName} onChange={(e) => setPrescription({ ...prescription, patientName: e.target.value })} className="border p-2 rounded" />
+          <input 
+  type="text" 
+  placeholder="Enter Name" 
+  value={prescription.patientName} 
+  onChange={(e) => setPrescription({ ...prescription, patientName: e.target.value })} 
+  className="border p-2 rounded" 
+/>
+
+<input 
+  type="text" 
+  placeholder="Enter Age" 
+  value={prescription.age} 
+  onChange={(e) => setPrescription({ ...prescription, age: e.target.value })} 
+  className="border p-2 rounded" 
+/>
+
+<input 
+  type="text" 
+  placeholder="Enter Gender" 
+  value={prescription.gender} 
+  onChange={(e) => setPrescription({ ...prescription, gender: e.target.value })} 
+  className="border p-2 rounded" 
+/>
+
+<input 
+  type="date" 
+  value={prescription.date} 
+  onChange={(e) => setPrescription({ ...prescription, date: e.target.value })} 
+  className="border p-2 rounded" 
+/>
+
+            {/* <input type="text" placeholder="Enter Name" value={prescription.patientName} onChange={(e) => setPrescription({ ...prescription, patientName: e.target.value })} className="border p-2 rounded" />
             <input type="text" placeholder="Enter Age" value={prescription.age} onChange={(e) => setPrescription({ ...prescription, age: e.target.value })} className="border p-2 rounded" />
             <input type="text" placeholder="Enter Gender" value={prescription.gender} onChange={(e) => setPrescription({ ...prescription, gender: e.target.value })} className="border p-2 rounded" />
-            <input type="date" value={prescription.date} onChange={(e) => setPrescription({ ...prescription, date: e.target.value })} className="border p-2 rounded" />
+            <input type="date" value={prescription.date} onChange={(e) => setPrescription({ ...prescription, date: e.target.value })} className="border p-2 rounded" /> */}
             {/* <input type="text" placeholder="Search Medicine" value={prescription.medicine} onChange={(e) => setPrescription({ ...prescription, medicine: e.target.value })} className="border p-2 rounded" />
             
             <input type="text" placeholder="Dosage" value={prescription.dosage} onChange={(e) => setPrescription({ ...prescription, dosage: e.target.value })} className="border p-2 rounded" />
