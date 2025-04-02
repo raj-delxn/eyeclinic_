@@ -33,27 +33,25 @@ const DocSideBar = () => {
   if (!token) return null;
 
   // 🔹 Handle Logout (Prevents Back Navigation)
-  const handleLogout = async () => {
-    try {
-      const response = await fetch("/api/auth/sign-out", { method: "POST" });
+  
+const handleLogout = async () => {
+  try {
+    await fetch("/api/auth/sign-out", {
+      method: "POST",
+      credentials: "include",
+    });
 
-      if (response.ok) {
-        localStorage.removeItem("token");
-        router.push("/login");
+    // Clear the token from local storage
+    localStorage.removeItem("token");
+    sessionStorage.removeItem("token");
 
-        setTimeout(() => {
-          window.history.pushState(null, null, window.location.href);
-          window.onpopstate = () => {
-            window.history.pushState(null, null, window.location.href);
-          };
-        }, 0);
-      } else {
-        console.error("Logout failed:", await response.json());
-      }
-    } catch (error) {
-      console.error("Logout error:", error);
-    }
-  };
+    // Force a state update and redirect
+    window.location.href = "/login"; // Ensures immediate redirect
+
+  } catch (error) {
+    console.error("Logout failed:", error);
+  }
+};
 
   return (
     <aside className="w-64 bg-white p-6 shadow-lg h-screen fixed">
