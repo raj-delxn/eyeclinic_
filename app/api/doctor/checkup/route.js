@@ -9,12 +9,12 @@ export async function GET() {
     // Get today's date in YYYY-MM-DD format
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    const formattedDate = today.toISOString().split("T")[0]; // Format to YYYY-MM-DD
-    // Find appointments with today's date
+    const formattedDate = today.toISOString().split("T")[0]; // YYYY-MM-DD
+
     const appointments = await Appointment.find({
-      appointmentDate: { $gte: formattedDate },
+    appointmentDate: formattedDate, // Matches only today's date
     });
-    console.log(formattedDate);
+
 
     return NextResponse.json(appointments);
   } catch (error) {

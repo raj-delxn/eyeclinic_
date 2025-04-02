@@ -19,6 +19,21 @@ const DoctorProfile = () => {
       } catch (error) {
         console.error("Error fetching appointments:", error);
       }
+
+      const checkAuth = () => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          router.push("/login"); // Redirect to login if no token
+        } else {
+          const decodedToken = JSON.parse(atob(token.split(".")[1])); // Decode JWT payload
+          const currentTime = Math.floor(Date.now() / 1000);
+  
+          if (decodedToken.exp < currentTime) {
+            localStorage.removeItem("token"); // Remove expired token
+            router.push("/login"); // Redirect to login page
+          }
+        }
+      };
     };
 
     fetchAppointments();
