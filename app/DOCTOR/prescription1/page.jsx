@@ -156,7 +156,6 @@ export default function PrescriptionComponent() {
             onClick={handleSubmit}
           />
 
-          <input className="h-8 m-4 px-12 text-base  text-white  bg-blue-500 rounded-lg cursor-pointer focus:shadow-outline hover:bg-blue-800" type="submit" value="Submit" />
         </div>
       </div>
     </div>
