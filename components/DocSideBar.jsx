@@ -81,7 +81,7 @@ const DocSideBar = () => {
             items={[
               { name: "Doctors", route: "/DOCTOR/roles_doc" },
               { name: "Receptionists", route: "/DOCTOR/roles_receptionist" },
-              { name: "Eye-wear Employee", route: "/DOCTOR/roles_patient" },
+              { name: "Eye-wear Employee", route: "/DOCTOR/roles_eyewear" },
             ]}
             pathname={pathname}
           />
