@@ -1,27 +1,43 @@
 "use client"
 
 import { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { useEffect } from 'react';
 import { Home, Bell, Phone, User, Settings, Calendar, Users, CreditCard, ChevronDown } from 'lucide-react';
+import DocSideBar from "../../../components/DocSideBar";
 
 
 export default function PrescriptionComponent() {
+  const searchParams = useSearchParams();
   const [activeItem, setActiveItem] = useState(null);
-
+  const [inputValue, setInputValue] = useState('');
+  <input
+    type="text"
+    value={inputValue}
+    onChange={(e) => setInputValue(e.target.value)}
+  />
+  
   const [prescription, setPrescription] = useState({
-    // patientName: '',
-    // age: '',
-    // gender: '',
-    // date: '',
-    // medicine: '',
-    // dosage: '',
-    // duration: '',
+    patientName: searchParams.get("name") || "",
+    age: searchParams.get("age") || "",
+    gender: searchParams.get("gender") || "",
+    date: searchParams.get("date") || "",
     powerDetails: {
       left: { sph: '', cyl: '', axis: '', pd: '' },
       right: { sph: '', cyl: '', axis: '', pd: '' }
     },
     suggestion: ''
-
   });
+
+  useEffect(() => {
+    setPrescription((prev) => ({
+      ...prev,
+      patientName: searchParams.get("name") || prev.patientName,
+      age: searchParams.get("age") || prev.age,
+      gender: searchParams.get("gender") || prev.gender,
+      date: searchParams.get("date") || prev.date,
+    }));
+  }, [searchParams]);
 
   const handleSubmit = () => {
     const jsonData = JSON.stringify(prescription, null, 2);
@@ -31,66 +47,63 @@ export default function PrescriptionComponent() {
   return (
     <div className="flex h-screen bg-gray-100">
       {/* Sidebar */}
-      <aside className="w-64 bg-white p-6 shadow-lg h-screen fixed">
-        <div className="flex items-center space-x-3 mb-20">
-          <img
-            src="/images/Doc-logo.png"
-            alt="Doctor Name"
-            className="w-10 h-10 rounded-full"
-          />
-          <div>
-            <h4 className="text-gray-900 text- font-semibold">Mr. Jon Doe</h4>
-            <p className="text-sm text-gray-500">Eye Care Specialist</p>
-          </div>
-        </div>
-        <nav className="mt-8 ">
-          <ul className="space-y-5 mb-5">
-            <li>
-              <a href="/dashboard">
-                <NavItem Icon={Home} label="Doctor Dashboard" activeItem={activeItem} setActiveItem={setActiveItem} isActivetext={true} />
-              </a>
-            </li>
-            <li>
-              <a href="/doc_appointment">
-                <NavItem Icon={Calendar} label="Appointments" activeItem={activeItem} setActiveItem={setActiveItem} />
-              </a>
-            </li>
-            <li>
-              <a href="/doctors_list">
-                <NavItem Icon={User} label="Doctor's List" activeItem={activeItem} setActiveItem={setActiveItem} />
-              </a>
-            </li>
-            <li>
-              <a href="">
-                <NavItem Icon={CreditCard} label="Payment" activeItem={activeItem} setActiveItem={setActiveItem} />
-              </a>
-            </li>
-          </ul>
+      <DocSideBar />
 
-
-          <DropdownNavItem
-            Icon={Settings}
-            label="Account Settings"
-            items={["Profile Information", "Change Password", "Notification Preferences", "Logout"]}
-            activeItem={activeItem}
-            setActiveItem={setActiveItem}
-          />
-        </nav>
-      </aside>
       {/* Main Content */}
-      <div className="flex-1 p-6 ml-64">
+      <div className="flex-1 text-black p-6 ml-64">
+        {/* Header */}
         <header className="flex justify-between items-center bg-blue-600 p-4 rounded-lg shadow-md">
-          <h1 className="text-white text-lg font-bold">Create Prescription</h1>
-          <input type="text" placeholder="Search" className="px-4 py-2 rounded-md focus:ring outline-none" />
+          <h1 className="text-white text-lg font-bold">Today's Appointments</h1>
+          <div className="flex flex-row space-x-4">
+            <input
+              type="text"
+              placeholder="Search"
+              className="px-4 py-2 rounded-md focus:ring outline-none"
+            />
+            <div className="items-center justify-center flex flex-row gap-4">
+              <User className="text-white" />
+            </div>
+          </div>
         </header>
 
         <div className="bg-white p-6 rounded-lg shadow-md mt-6">
           <h2 className="text-lg font-semibold">Create Prescription</h2>
           <div className="grid grid-cols-3 gap-4">
-            <input type="text" placeholder="Enter Name" value={prescription.patientName} onChange={(e) => setPrescription({ ...prescription, patientName: e.target.value })} className="border p-2 rounded" />
+          <input 
+  type="text" 
+  placeholder="Enter Name" 
+  value={prescription.patientName} 
+  onChange={(e) => setPrescription({ ...prescription, patientName: e.target.value })} 
+  className="border p-2 rounded" 
+/>
+
+<input 
+  type="text" 
+  placeholder="Enter Age" 
+  value={prescription.age} 
+  onChange={(e) => setPrescription({ ...prescription, age: e.target.value })} 
+  className="border p-2 rounded" 
+/>
+
+<input 
+  type="text" 
+  placeholder="Enter Gender" 
+  value={prescription.gender} 
+  onChange={(e) => setPrescription({ ...prescription, gender: e.target.value })} 
+  className="border p-2 rounded" 
+/>
+
+<input 
+  type="date" 
+  value={prescription.date} 
+  onChange={(e) => setPrescription({ ...prescription, date: e.target.value })} 
+  className="border p-2 rounded" 
+/>
+
+            {/* <input type="text" placeholder="Enter Name" value={prescription.patientName} onChange={(e) => setPrescription({ ...prescription, patientName: e.target.value })} className="border p-2 rounded" />
             <input type="text" placeholder="Enter Age" value={prescription.age} onChange={(e) => setPrescription({ ...prescription, age: e.target.value })} className="border p-2 rounded" />
             <input type="text" placeholder="Enter Gender" value={prescription.gender} onChange={(e) => setPrescription({ ...prescription, gender: e.target.value })} className="border p-2 rounded" />
-            <input type="date" value={prescription.date} onChange={(e) => setPrescription({ ...prescription, date: e.target.value })} className="border p-2 rounded" />
+            <input type="date" value={prescription.date} onChange={(e) => setPrescription({ ...prescription, date: e.target.value })} className="border p-2 rounded" /> */}
             {/* <input type="text" placeholder="Search Medicine" value={prescription.medicine} onChange={(e) => setPrescription({ ...prescription, medicine: e.target.value })} className="border p-2 rounded" />
             
             <input type="text" placeholder="Dosage" value={prescription.dosage} onChange={(e) => setPrescription({ ...prescription, dosage: e.target.value })} className="border p-2 rounded" />
