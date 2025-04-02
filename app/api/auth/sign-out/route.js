@@ -2,9 +2,15 @@ import { NextResponse } from "next/server";
 
 export async function POST() {
   try {
-    // 🔹 Clear the authentication cookie
     const response = NextResponse.json({ message: "Logout successful" });
-    response.cookies.set("token", "", { expires: new Date(0), httpOnly: true , path: "/", });
+
+    // 🔹 Properly expire the token (ensuring it's removed from browser)
+    response.cookies.set("token", "", { 
+      expires: new Date(0), 
+      httpOnly: true, 
+      path: "/", 
+      maxAge: 0 
+    });
 
     return response;
   } catch (error) {
